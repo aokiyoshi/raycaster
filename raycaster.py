@@ -4,7 +4,6 @@ import math
 import os
 import pygame
 from pygame.locals import *
-import multiprocessing
 
 #Classes
 class Point:
@@ -168,8 +167,8 @@ def draw_image(win, char, gamemap, cam, clay, k, k2, show_sky, textures):
         sky_y = int(0.25*screen_height)
         pygame.draw.line(win, [127,218,255], [0, sky_y], [screen_width,sky_y], int(half_screen_height))
     #Prepare generators for loop
-    pool = multiprocessing.Pool(processes=4)
-    angles = pool.map(lambda i: math.atan2((chw-k*i),camf), range(0,screen_width,2))
+    
+    angles = map(lambda i: math.atan2((chw-k*i),camf), range(0,screen_width,2))
     i_s = range(0,screen_height,2)
     #Main Loop \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
     for i,angle in zip(i_s,angles):
@@ -250,7 +249,7 @@ def main():
                pygame.image.load(os.path.join('D:\Programming\RayCast\data', 'brick2.bmp')).convert(),
                pygame.image.load(os.path.join('D:\Programming\RayCast\data', 'brick3.bmp')).convert(),
                pygame.image.load(os.path.join('D:\Programming\RayCast\data', 'sky3.jpg')).convert(),
-               pygame.image.load(os.path.join('D:\Programming\RayCast\data', 'mc2.jpg')).convert()]
+               pygame.image.load(os.path.join('D:\Programming\RayCast\data', 'mc.jpg')).convert()]
     
     #Init Character
     hero = character(Point(400,400),50,50,4) #Location, rotation, radius, speed
